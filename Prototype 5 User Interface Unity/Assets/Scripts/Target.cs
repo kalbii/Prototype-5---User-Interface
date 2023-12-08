@@ -6,10 +6,12 @@ public class Target : MonoBehaviour
 {
     private Rigidbody targetRB;
 
-    private float minSpeed = 12;
-    private float maxSpeed = 16;
+    private float minSpeed = 10;
+    private float maxSpeed = 12;
     private float minTorque = 650;
     private float maxTorque = 1200;
+
+    private Skeleton SkeletonEnemy;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +19,9 @@ public class Target : MonoBehaviour
         targetRB = GetComponent<Rigidbody>();
         targetRB.AddForce(RandomForce(), ForceMode.Impulse);
         targetRB.AddTorque(RandomTorque(), Random.Range(-10, 10), Random.Range(-10, 10), ForceMode.Impulse);
-        //transform.position = new Vector3(Random.Range(-4, 4), -6);
+        transform.position = new Vector3(Random.Range(116, 108), 102.94f, 117);
+
+        SkeletonEnemy = GameObject.Find("Skeleton").GetComponent<Skeleton>();
     }
 
     // Update is called once per frame
@@ -37,7 +41,8 @@ public class Target : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        SkeletonEnemy.SkeletonDeath();
     }
 
     private void OnTriggerEnter(Collider other)
